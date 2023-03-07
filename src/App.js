@@ -1,10 +1,17 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { HStack } from "@chakra-ui/react";
 import EditorSide from "./components/EditorSide";
 import PreviewSide from "./components/PreviewSide";
+import { demoJobs, demoEducation } from "./components/data";
+import { WORKACTIONS, reducer } from "./components/workReducer";
+import { EDUACTIONS, eduReducer } from "./components/educationReducer";
 
 function App() {
+
+  const [education, dispatchEducation] = useReducer(eduReducer, demoEducation);
+  const [works, dispatchWorks] = useReducer(reducer, demoJobs);
+
   const [personalDetails, setpersonalDetails] = useState({
     name: "John Doe",
     position: "Software Developer",
@@ -15,54 +22,25 @@ function App() {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit deleniti autem voluptate nihil perferendis hic! Placeat veniam eius quod perspiciatis ducimus aliquid similique magnam! Vel, amet cupiditate? Ab, sint eveniet.",
   });
 
-  const [workExperience, setWorkExperience] = useState([
-    {
-      company: "A Software Company",
-      position: "Software Engineer",
-      startDate: "2020",
-      endDate: "Present",
-      jobDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, placeat iusto autem ipsum distinctio repellendus earum sapiente sed aliquid rem!",
-    },
-    {
-      company: "A Software Company",
-      position: "Software Engineer",
-      startDate: "2020",
-      endDate: "Present",
-      jobDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, placeat iusto autem ipsum distinctio repellendus earum sapiente sed aliquid rem!",
-    },
-    {
-      company: "A Software Company",
-      position: "Software Engineer",
-      startDate: "2020",
-      endDate: "Present",
-      jobDescription:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, placeat iusto autem ipsum distinctio repellendus earum sapiente sed aliquid rem!",
-    },
-  ]);
-
-  const [education, setEducation] = useState([
-    {
-      course: "A Software Company",
-      university: "Software Engineer",
-      startDate: "2020",
-      endDate: "Present",
-      educationSummary:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, placeat iusto autem ipsum distinctio repellendus earum sapiente sed aliquid rem!",
-    },
-  ]);
-
   return (
-    <HStack w="100vw" p="4" spacing="10" justifyContent="center" alignItems="center">
+    <HStack
+      w="100vw"
+      p="4"
+      spacing="10"
+      justifyContent="center"
+      alignItems="center"
+    >
       <EditorSide
         personalDetails={personalDetails}
         setpersonalDetails={setpersonalDetails}
-        workExperience={workExperience}
+        works={works}
+        dispatchWorks={dispatchWorks}
+        education={education}
+        dispatchEducation={dispatchEducation}
       />
       <PreviewSide
         personalDetails={personalDetails}
-        workExperience={workExperience}
+        works={works}
         education={education}
       />
     </HStack>

@@ -2,7 +2,7 @@ import { VStack, HStack, Heading, Text } from "@chakra-ui/react";
 import { PhoneIcon, EmailIcon, Search2Icon } from "@chakra-ui/icons";
 
 export default function PreviewSide(props) {
-  const { personalDetails, workExperience, education } = props;
+  const { personalDetails, works, education } = props;
 
   return (
     <VStack
@@ -41,9 +41,9 @@ export default function PreviewSide(props) {
       <Text py="5">{personalDetails.description}</Text>
 
       <Heading fontSize="lg">WORK EXPERIENCE</Heading>
-      {workExperience.map((item) => {
+      {works.map((item) => {
         return(
-          <VStack w="100%">
+          <VStack w="100%" key={item.id}>
           <HStack justifyContent="space-between" w="100%">
             <Text fontWeight="bold">{item.position}</Text>
             <HStack>
@@ -59,7 +59,7 @@ export default function PreviewSide(props) {
       <Heading fontSize="lg" pt="5">EDUCATION</Heading>
       {education.map((item) => {
         return(
-          <VStack w="100%">
+          <VStack w="100%" key={item.id}>
           <HStack justifyContent="space-between" w="100%">
             <Text fontWeight="bold">{item.course}</Text>
             <HStack>
@@ -67,7 +67,7 @@ export default function PreviewSide(props) {
               <Text fontWeight="bold">{item.startDate}-{item.endDate}</Text>
             </HStack>
           </HStack>
-          <Text>{item.educationSummary}</Text>
+          <Text textAlign="left">{item.educationSummary}</Text>
         </VStack>
         )
       })}
